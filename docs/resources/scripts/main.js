@@ -39,7 +39,7 @@ if (isIos() && !isInStandaloneMode()) {
 }
 console.log($('#server-id').val());
 System.server = `https://script.google.com/macros/s/${$('#server-id').val()}/exec`;
-
+Download();
 //EST_BIX();
 });
 
