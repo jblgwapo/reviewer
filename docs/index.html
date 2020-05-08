@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content= "width = device-width, initial-scale = 1.0, minimum-scale = 1, maximum-scale = 1, user-scalable = no">
+
+    <link rel="manifest" href="/resources/manifest.json">
+    <link rel="shortcut icon" href="resources/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- default, black, and black-translucent. -->
+    <meta name="apple-mobile-web-app-title" content="ECE Reviewer" >
+    <!-- Splash -->
+    <!-- iPhone Xs Max (1242px x 2688px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and ( orientation:portrait)" href="resources/splash/apple-launch-1242x2688.png">
+    <!-- iPhone Xr (828px x 1792px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and ( orientation:portrait)" href="resources/splash/apple-launch-828x1792.png">
+    <!-- iPhone X, Xs (1125px x 2436px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and ( orientation:portrait)" href="resources/splash/apple-launch-1125x2436.png">
+    <!-- iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and ( orientation:portrait)" href="resources/splash/apple-launch-1242x2208.png">
+    <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and ( orientation:portrait)" href="resources/splash/apple-launch-750x1334.png">
+    <!-- iPad Pro 12.9" (2048px x 2732px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and ( orientation:portrait)" href="resources/splash/apple-launch-2048x2732.png">
+    <!-- iPad Pro 11” (1668px x 2388px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and ( orientation:portrait)" href="resources/splash/apple-launch-1668x2388.png">
+    <!-- iPad Pro 10.5" (1668px x 2224px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and ( orientation:portrait)" href="resources/splash/apple-launch-1668x2224.png">
+    <!-- iPad Mini, Air (1536px x 2048px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and ( orientation:portrait)" href="resources/splash/apple-launch-1536x2048.png">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="resources/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="resources/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="resources/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="resources/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="resources/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="resources/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="resources/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="resources/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="resources/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="resources/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="resources/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="resources/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="resources/icons/favicon-16x16.png">
+
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="resources/icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#000000">
+
+    <link id="style" rel="stylesheet" type="text/css" href="resources/css/style.css">
+
+
+
+    <script src="resources/scripts/engine.js"></script>
+    <script src="resources/scripts/main.js"></script>
+    <script src="resources/database/est_bix.js"></script>
+    <script src="resources/scripts/app.js"></script>
+
+    <title>ECE Reviewer</title>
+  </head>
+  <body >
+
+
+
+<nav>
+  <ul>
+    <a href="#" ><li exec="none" class="tab" child=".main" status="false">
+      <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="374.0740740740741" viewBox="0, 0, 400,374.0740740740741" fill="inherit"><g id="svgg"><path id="path0" d="M62.810 3.799 C 55.788 8.138,54.102 7.265,115.684 31.180 C 145.698 42.837,171.125 53.780,172.187 55.499 C 173.250 57.218,147.455 47.934,114.867 34.868 C 55.151 10.925,46.520 8.461,42.899 14.319 C 41.809 16.083,55.072 22.999,72.373 29.688 C 89.674 36.377,103.159 42.520,102.339 43.340 C 101.520 44.159,86.154 38.905,68.194 31.662 C 49.625 24.175,32.546 19.445,28.601 20.697 C 18.121 24.023,19.664 24.755,110.178 59.402 L 194.444 91.657 195.617 80.852 C 198.578 53.567,191.338 48.814,81.221 5.762 C 73.201 2.627,65.956 1.854,62.810 3.799 M281.334 20.752 C 209.129 49.606,201.599 55.534,204.413 81.319 L 205.556 91.795 248.148 75.397 C 378.274 25.297,378.929 25.013,372.502 21.416 C 367.966 18.878,356.986 21.616,332.672 31.347 C 314.209 38.737,298.444 44.123,297.637 43.316 C 296.830 42.509,310.326 36.377,327.627 29.688 C 344.928 22.999,358.191 16.083,357.101 14.319 C 353.548 8.571,345.545 10.801,288.122 33.540 C 219.854 60.574,217.902 61.262,229.630 54.177 C 234.722 51.100,261.806 39.750,289.815 28.953 C 317.824 18.157,340.741 8.238,340.741 6.910 C 340.741 -0.540,326.052 2.882,281.334 20.752 M0.000 162.776 C 0.000 237.822,1.456 296.759,3.339 297.923 C 5.176 299.058,41.843 313.978,84.821 331.078 L 162.963 362.169 162.963 227.657 L 162.963 93.145 104.630 70.245 C 72.546 57.651,35.880 43.374,23.148 38.520 L 0.000 29.693 0.000 162.776 M315.741 62.036 L 237.037 93.146 237.037 227.657 L 237.037 362.169 315.610 330.906 C 358.825 313.712,394.680 299.147,395.287 298.541 C 395.893 297.934,395.952 237.472,395.417 164.182 L 394.444 30.926 315.741 62.036 M171.250 236.111 L 172.222 368.519 199.074 369.607 L 225.926 370.695 225.926 237.199 L 225.926 103.704 198.101 103.704 L 170.277 103.704 171.250 236.111 " stroke="none" fill="currentColor" fill-rule="evenodd"></path></g></svg>
+      <span tab>Main</span>
+      </li></a>
+
+    <a href="#" ><li exec="updateStats" class="tab" child=".statistics" status="false">
+      <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0, 0, 400,400"><g id="svgg"><path id="path0" d="M3.922 200.000 L 3.922 396.078 200.000 396.078 C 393.146 396.078,396.078 395.962,396.078 388.273 C 396.078 380.604,392.819 380.450,208.824 379.450 L 21.569 378.431 20.550 191.176 C 19.550 7.181,19.396 3.922,11.727 3.922 C 4.038 3.922,3.922 6.854,3.922 200.000 M305.882 199.679 C 305.882 364.481,303.784 352.941,333.753 352.941 L 356.863 352.941 356.863 205.882 L 356.863 58.824 331.373 58.824 L 305.882 58.824 305.882 199.679 M133.333 241.176 L 133.333 352.941 158.824 352.941 L 184.314 352.941 184.314 241.176 L 184.314 129.412 158.824 129.412 L 133.333 129.412 133.333 241.176 M219.608 270.588 L 219.608 352.941 245.098 352.941 L 270.588 352.941 270.588 270.588 L 270.588 188.235 245.098 188.235 L 219.608 188.235 219.608 270.588 M47.059 315.686 L 47.059 352.941 72.549 352.941 L 98.039 352.941 98.039 315.686 L 98.039 278.431 72.549 278.431 L 47.059 278.431 47.059 315.686 " stroke="none" fill="currentColor" fill-rule="evenodd"></path></g></svg>
+      <span tab>Progress</span></li></a>
+
+    <a href="#" ><li exec="none" class="tab" child=".bank" status="false">
+      <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="310.34482758620686" viewBox="0, 0, 400,310.34482758620686"><g id="svgg"><path id="path0" d="M3.448 43.103 L 3.448 82.759 200.000 82.759 L 396.552 82.759 396.552 43.103 L 396.552 3.448 200.000 3.448 L 3.448 3.448 3.448 43.103 M62.069 44.828 L 62.069 62.069 43.103 62.069 L 24.138 62.069 24.138 44.828 L 24.138 27.586 43.103 27.586 L 62.069 27.586 62.069 44.828 M3.448 156.897 L 3.448 196.552 200.000 196.552 L 396.552 196.552 396.552 156.897 L 396.552 117.241 200.000 117.241 L 3.448 117.241 3.448 156.897 M62.069 156.897 L 62.069 175.862 43.103 175.862 L 24.138 175.862 24.138 156.897 L 24.138 137.931 43.103 137.931 L 62.069 137.931 62.069 156.897 M3.448 268.966 L 3.448 306.897 200.000 306.897 L 396.552 306.897 396.552 268.966 L 396.552 231.034 200.000 231.034 L 3.448 231.034 3.448 268.966 M62.069 270.690 L 62.069 289.655 43.103 289.655 L 24.138 289.655 24.138 270.690 L 24.138 251.724 43.103 251.724 L 62.069 251.724 62.069 270.690 " stroke="none" fill="currentColor" fill-rule="evenodd"></path></g></svg>
+      <span tab>Bank</span></li></a>
+    <a href="#" ><li exec="none" class="tab" child=".settings" status="false">
+      <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0, 0, 400,400"><g id="svgg"><path id="path0" d="M224.153 21.202 C 210.163 47.573,184.866 49.092,167.997 24.573 C 154.112 4.393,153.224 4.338,115.904 21.346 C 83.609 36.063,84.174 35.171,90.992 60.663 C 98.205 87.631,82.933 102.596,49.760 101.066 L 26.642 100.000 15.282 129.348 C 0.759 166.867,0.700 166.409,21.569 178.639 C 35.874 187.022,39.216 191.077,39.216 200.052 C 39.216 206.141,40.200 213.688,41.403 216.823 C 42.843 220.575,37.486 226.379,25.724 233.810 C 15.897 240.019,7.854 247.966,7.850 251.471 C 7.844 257.324,33.708 317.707,36.176 317.601 C 36.769 317.575,46.192 315.174,57.115 312.265 C 87.632 304.139,103.892 319.403,100.044 352.565 L 97.417 375.195 130.279 387.597 C 170.866 402.916,166.171 403.613,178.810 380.392 C 194.184 352.145,216.672 351.364,235.294 378.431 C 241.972 388.137,249.018 396.078,250.952 396.078 C 254.431 396.078,313.974 369.686,316.744 366.916 C 317.534 366.126,315.405 356.133,312.013 344.710 L 305.845 323.941 318.579 310.804 C 327.228 301.879,333.837 298.269,339.185 299.546 C 343.516 300.579,353.388 302.570,361.124 303.970 L 375.189 306.515 386.262 275.806 C 392.352 258.917,398.040 243.109,398.902 240.677 C 399.765 238.245,391.541 230.762,380.627 224.047 C 352.187 206.547,351.333 184.411,378.438 167.287 C 388.140 161.158,396.078 154.471,396.078 152.429 C 396.078 145.153,367.471 86.275,363.936 86.275 C 361.956 86.275,352.614 88.219,343.175 90.596 C 322.207 95.876,295.791 80.419,299.473 65.023 C 300.547 60.535,302.584 50.459,304.001 42.633 L 306.577 28.403 274.522 16.162 C 234.060 0.711,235.077 0.609,224.153 21.202 M248.449 128.163 C 303.828 167.085,301.764 243.431,244.422 277.093 C 187.857 310.300,113.725 267.684,113.725 201.961 C 113.725 133.508,193.713 89.693,248.449 128.163 " stroke="none" fill="currentColor" fill-rule="evenodd"></path></g></svg>
+    <span tab>Settings</span></li></a>
+  </ul>
+</nav>
+
+
+<main>
+  <section class="main" status="idle">
+    <span content="title">Main</span>
+    <div class="container">
+      <button onclick="GUI_Alert('Hello World!')">Try me</button><br>
+      <br><br>
+      <button onclick="Start()">Start</button><br>
+      <br><span id="prompt"></span>
+    </div>
+  </section>
+
+  <section class="statistics" status="idle">
+    <span content="title">Statistics</span>
+    <div class="container">
+    <div id="userStats"></div>
+  </div>
+  </section >
+
+  <section class="bank" status="idle">
+    <span content="title">Question Bank</span>
+    <div class="container" id="questionBankStats">
+  </div>
+  <div id="questionBank"></div>
+  </section>
+
+  <section class="settings" status="idle">
+    <span content="title">Settings</span>
+    <div class="container">
+      <div class="element">
+    	 <div class="pref">Dark Mode
+         <div class="set">
+           <label class="switch"><input type="checkbox"  value=""  onclick="GUI_dark(this.value)" id="darkmode"><span class="slider round"></span></label>
+         </div>
+    	 <div class="info">Force to dark mode. Uses system's automatic dark mode if inactive.</div></div>
+    	</div>
+      <div class="element">
+    	 <div class="pref">Statistics
+         <div class="set">
+           <label class="switch"><input type="checkbox"  value="" onclick=""><span class="slider round"></span></label>
+         </div>
+    	 <div class="info">Save Statistics to Storage</div></div>
+    	</div>
+      <div class="element">
+    	 <div class="pref">History
+         <div class="set">
+           <label class="switch"><input type="checkbox"  value="" onclick=""><span class="slider round"></span></label>
+         </div>
+    	 <div class="info">Saves MCQ History</div></div>
+    	</div>
+      <div class="element">
+    	 <div class="pref">Tomato
+         <div class="set">
+           <label class="switch"><input type="checkbox"  value="" onclick=""><span class="slider round"></span></label>
+         </div>
+    	 <div class="info">For the serious.</div></div>
+    	</div>
+
+
+
+
+
+   </div>
+   <span content="title">Advanced</span>
+   <div class="container">
+      <button onclick="GUI_activateModal('#dependencies')">Clear Cache</button><br>
+      <button onclick="GUI_activateModal('#server')">Change Server</button><br>
+      <button onclick="console.log(JSON.stringify(Bank));">Debug</button>
+   </div>
+   <span content="title">About</span>
+   <div class="container alignCenter">
+      John Brell G. Ladiero's Automatic Review Companion version 7 build 6200.<br>Huge Thanks to <a href="#">Joshua Azuelo</a><br>All Rights Reserved 2020
+   </div>
+
+
+  </section>
+
+</main>
+
+
+
+<div class="modal" id="alert" status="idle">
+  <div window="alert" id="alertMessage"></div>
+  <p><span content="note"> Click Outside to Continue..</span></p>
+  <div class="exit" onclick="terminateModal('#alert')"></div>
+</div>
+
+<div class="modal" id="tomato" status="idle">
+  <div window="medium" id="alertMessage">
+    <center><span content="emphasize" id="tomato-timer">00:00</span>Take a break!</center>
+
+  </div>
+  <p><span content="note"> Click Outside to Continue..</span></p>
+  <div class="exit" onclick="terminateModal('#tomato')"></div>
+</div>
+
+<div class="modal" id="dependencies" status="idle">
+  <div window="medium">
+    <span content="title_small">Dependencies</span>
+    <p><textarea  id="cli"></textarea>
+    </p><br>
+    <button onclick="loadDependency()">Load</button>
+    <div id="localStorage">
+
+    </div>
+  </div>
+  <div class="exit" onclick="terminateModal('#dependencies')"></div>
+</div>
+
+
+<div class="modal" id="server" status="idle">
+  <div window="medium">
+    <span content="title_small">Server ID</span>
+    <p><textarea  id="server-id">AKfycbwdlihHyUJEgrmUFHdtBixjHRWxSC-HgvuiyeSmUgDttm5XYR-X</textarea>
+    </p><br>
+    <button onclick="Download()">Load</button>
+    <div id="localStorage">
+
+    </div>
+  </div>
+  <div class="exit" onclick="terminateModal('#server')"></div>
+</div>
+
+
+
+
+<div class="modal" id="mcq" status="idle">
+  <div id="mcqWindow" window="main">
+    <div id="frame">
+      <span id="major" content="title_small">MCQ</span>
+      <span id="question">Question Goes Here:</span>
+      <div id="choices">
+        <a onclick="choose(0)"> <div class="choice" id="a">Choice A</div></a>
+        <a onclick="choose(1)"> <div class="choice" id="b">Choice B</div></a>
+        <a onclick="choose(2)"> <div class="choice" id="c">Choice C</div></a>
+        <a onclick="choose(3)"> <div class="choice" id="d">Choice D</div></a>
+      </div>
+      <div id="explanationContainer">Explanation: <span id="explanation"></span></div>
+      <div id="linksContainer">Links: <span id="links"></span></div>
+
+    </div>
+<div id="navigation_buttons"><button style="float:left;" onclick="Previous()">Previous</button> <button style="float:right;" onclick="Next()">Next</button></div>
+  </div>
+
+  <div class="exit" onclick="Pause()"></div>
+</div>
+
+
+
+
+
+
+
+
+  </body>
+</html>
