@@ -1,0 +1,78 @@
+
+/* Reset Defaults */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video,button {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font-family:helvetica;
+		vertical-align: baseline;
+		}
+body{ background:var(--background);}
+
+
+
+/* Global */
+
+body{ background:var(--background);}
+header{background:var(--theme); color:white; width:100%; text-align:center;}
+a { text-decoration: none; color:inherit; }
+b{ font-size:140%;}
+nav{ margin:auto; display:inline-block; width:100%;}
+nav lu{  list-style-type: none;}
+nav li{padding:0.3%; min-width:10%; width:20%; max-width:7em;  display:inline-block;}
+main { width:100%;}
+section{ background:var(--container); color:var(--color); display:none; width:80%; max-width:1000px; margin:0.7% auto; padding:2.5%; border-radius: 3px; }
+section table{ width:100%;}
+button { background: var(--theme); color:white; font-size: 100%; border:none; min-width:2em; padding:0.3em; border-radius: 3px;}
+hr{ border-top:1px solid var(--lines); border-bottom:0px; border-left:0px; border-right:0px; opacity:0.17; border-radius: 3px;}
+.navigationButton { text-align:center; font-size:1em; width: 5em;}
+
+
+/* Forms */
+form {  width:50%; display:inline-block; vertical-align:top;}
+aside { width:45%; float:right; height:20em; vertical-align:top;}
+footer {display:inline-block; margin-top:0.7em; width: 90%;}
+
+/* inputs */
+
+.input { width:80%; border:solid 1px var(--lines); border-radius:3px; background:var(--container); color:var(--color); padding:0.3em;}
+.popInput { width:60%; border:solid 1px var(--theme); border-radius:3px; background:var(--container); color:var(--color);}
+#bixOffset { width:20%; border:solid 1px var(--lines); border-radius:3px; background:var(--container); color:var(--color); display: inline-block; vertical-align: top;}
+#questionInput { height:7em;}
+#_pasteHere { height:10em;}
+
+/* Quiz Modal */
+
+.modal{ top:0; bottom:0; left:0; right:0; display:none; position:absolute; background:rgba(0,0,0,0.3); z-index: 99;}
+#window{ width:90%; max-width:1000px; padding:1%; margin:3% auto;  max-height:90vh; overflow-y:scroll; border:1px solid grey; background:var(--modal); color:var(--color); border-radius: 3px; z-index: 100;}
+#window a{ color:inherit; }
+/* Bank view Specifics*/
+#questionBank {  padding:0.3em; height:70vh; width:100%; overflow-y: scroll;; }
+.token { padding:0.7em; opacity:0.9; margin-bottom:0.3em; border:solid 1px rgba(0,0,0,0); border-radius: 3px;}
+.token:hover {  border: solid 1px var(--lines); opacity:1;}
+.token b { font-size:110%; }
+.token span { color:var(--color); opacity:77;}
+.complete { background:rgba(0,255,0,0.17);}
+.incomplete { background:rgba(255,50,0,0.17); }
+
+.output { height:50vh; width:100%; border:solid 1px var(--theme); border-radius:0; background:var(--container); color:var(--color); padding-top:0.3em; padding-bottom:0.3em; }
+/* Settings View Specifics */
+
+#settingsView{ text-align:left; !important }
+.settingsElement {width:100%; text-align:center;}
+.settingsElement #preference{  width:80%; max-width:85%; border-bottom:1px solid grey; display:inline-block; text-align:left;}
+.settingsElement #info { font-size:50%; vertical-align:center;}
+.settingsElement #set {display:inline-block; width:15%;}
+.settingsElement #set button{ width:100%; padding:1%;}
+#about { width:95%; margin:auto; font-size:70%; text-align:center;}
+#about b { font-size:100%;}
+
+
+
+/* Boot Screen And Alert Screen */
+#alertScreen { top:0; bottom:0; left:0; right:0; background:rgba(0,0,0,0.3); position:fixed; z-index:100; display:none;}
+#alertContainer { width:90%; max-width:20em; text-align:center; background:white; color:#111; overflow:hidden; margin:25vh auto; z-index:100; border-radius:0.5em;}
+#alert{ padding:0.3em; color:#111;}
+#closeAlert { padding: 0.3em; color:#147; border-top:solid 1px #CCC;}

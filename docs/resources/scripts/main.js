@@ -63,7 +63,7 @@ var System = {
   onQuiz:false,
   answer:'Choice C',
   requireAnswer:false,
-  activeSubjects:['EST/Acoustics'],
+  activeSubjects:[],
   currentToken:'',
   History:[],
   historyIndex:0,
@@ -142,7 +142,7 @@ var random = { version:6.2,
 		return this.shuffle(array);},
 	choose: function(array){
 		if(array.length==1) return array[0];
-    return  array[this.number(array.length-1)];
+    return  array[this.number(array.length)];
 		},
 	shuffle: function(array){
 		var currentIndex = array.length, temporaryValue, randomIndex;
@@ -290,11 +290,14 @@ function appendBank(token){
   return;}
   if(Bank.hasOwnProperty(token.major)){
     if(Bank[token.major].hasOwnProperty(token.subject)){ Bank[token.major][token.subject].push(token);}
-    else{Bank[token.major][token.subject] = [token];}
+    else{Bank[token.major][token.subject] = [token];
+      System.activeSubjects.push(`${token.major}/${token.subject}`);
+    }
   }
   else{
     Bank[token.major]={};
     Bank[token.major][token.subject]=[token];
+    System.activeSubjects.push(`${token.major}/${token.subject}`);
     console.log('New Subject');
   }
 };

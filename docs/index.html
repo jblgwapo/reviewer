@@ -67,7 +67,7 @@
   <ul>
     <a href="#" ><li exec="none" class="tab" child=".main" status="false">
       <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="374.0740740740741" viewBox="0, 0, 400,374.0740740740741" fill="inherit"><g id="svgg"><path id="path0" d="M62.810 3.799 C 55.788 8.138,54.102 7.265,115.684 31.180 C 145.698 42.837,171.125 53.780,172.187 55.499 C 173.250 57.218,147.455 47.934,114.867 34.868 C 55.151 10.925,46.520 8.461,42.899 14.319 C 41.809 16.083,55.072 22.999,72.373 29.688 C 89.674 36.377,103.159 42.520,102.339 43.340 C 101.520 44.159,86.154 38.905,68.194 31.662 C 49.625 24.175,32.546 19.445,28.601 20.697 C 18.121 24.023,19.664 24.755,110.178 59.402 L 194.444 91.657 195.617 80.852 C 198.578 53.567,191.338 48.814,81.221 5.762 C 73.201 2.627,65.956 1.854,62.810 3.799 M281.334 20.752 C 209.129 49.606,201.599 55.534,204.413 81.319 L 205.556 91.795 248.148 75.397 C 378.274 25.297,378.929 25.013,372.502 21.416 C 367.966 18.878,356.986 21.616,332.672 31.347 C 314.209 38.737,298.444 44.123,297.637 43.316 C 296.830 42.509,310.326 36.377,327.627 29.688 C 344.928 22.999,358.191 16.083,357.101 14.319 C 353.548 8.571,345.545 10.801,288.122 33.540 C 219.854 60.574,217.902 61.262,229.630 54.177 C 234.722 51.100,261.806 39.750,289.815 28.953 C 317.824 18.157,340.741 8.238,340.741 6.910 C 340.741 -0.540,326.052 2.882,281.334 20.752 M0.000 162.776 C 0.000 237.822,1.456 296.759,3.339 297.923 C 5.176 299.058,41.843 313.978,84.821 331.078 L 162.963 362.169 162.963 227.657 L 162.963 93.145 104.630 70.245 C 72.546 57.651,35.880 43.374,23.148 38.520 L 0.000 29.693 0.000 162.776 M315.741 62.036 L 237.037 93.146 237.037 227.657 L 237.037 362.169 315.610 330.906 C 358.825 313.712,394.680 299.147,395.287 298.541 C 395.893 297.934,395.952 237.472,395.417 164.182 L 394.444 30.926 315.741 62.036 M171.250 236.111 L 172.222 368.519 199.074 369.607 L 225.926 370.695 225.926 237.199 L 225.926 103.704 198.101 103.704 L 170.277 103.704 171.250 236.111 " stroke="none" fill="currentColor" fill-rule="evenodd"></path></g></svg>
-      <span tab>Main</span>
+      <span tab>Study</span>
       </li></a>
 
     <a href="#" ><li exec="updateStats" class="tab" child=".statistics" status="false">
@@ -86,11 +86,20 @@
 
 <main>
   <section class="main" status="idle">
-    <span content="title">Main</span>
+    <span content="title">Study</span>
     <div class="container">
       <button onclick="GUI_Alert('Hello World!')">Try me</button><br>
       <br><br>
-      <button onclick="Start()">Start</button><br>
+      <center>
+        <button buttonSize="large" onclick="Start()">Start</button><br>
+        <span content="note">
+          Keyboard Shortcuts<br>
+          Choices: 1,2,3,4 keys<br>
+          Next: return key<br>
+          Exit: esc key<br>
+
+        </span>
+      </center>
       <br><span id="prompt"></span>
     </div>
   </section>
@@ -105,6 +114,7 @@
   <section class="bank" status="idle">
     <span content="title">Question Bank</span>
     <div class="container" id="questionBankStats">
+      <center>Downloading Resources...</center>
   </div>
   <div id="questionBank"></div>
   </section>
@@ -117,7 +127,7 @@
          <div class="set">
            <label class="switch"><input type="checkbox"  value=""  onclick="GUI_dark(this.value)" id="darkmode"><span class="slider round"></span></label>
          </div>
-    	 <div class="info">Force to dark mode. Uses system's automatic dark mode if inactive.</div></div>
+    	 <div class="info">Force to dark mode. For unsupported devices.</div></div>
     	</div>
       <div class="element">
     	 <div class="pref">Statistics
@@ -146,15 +156,21 @@
 
 
    </div>
-   <span content="title">Advanced</span>
+
    <div class="container">
+     <span content="title-small">Advanced</span><br>
       <button onclick="GUI_activateModal('#dependencies')">Clear Cache</button><br>
       <button onclick="GUI_activateModal('#server')">Change Server</button><br>
       <button onclick="console.log(JSON.stringify(Bank));">Debug</button>
    </div>
-   <span content="title">About</span>
-   <div class="container alignCenter">
-      John Brell G. Ladiero's Automatic Review Companion version 7 build 6200.<br>Huge Thanks to <a href="#">Joshua Azuelo</a><br>All Rights Reserved 2020
+
+   <div class="container">
+     <span content="title-small">About</span>
+     <span>This Reviewer is solely based on ARCOM (The original reviewer) and is intended to help you review multiple choice questions without relying on paid services. All this efforts are to provide the users a supportive environment of freeware. This app is still under development, feel free to suggest practical features</span>
+       <br><br><center class="alignCenter">
+       John Brell G. Ladiero's Reviewer version 1 Build 1000 based on <a href="https://arcom.x10.mx/">ARCOM</a> version 7. <br>Huge Thanks to <a href="#">Joshua Azuelo</a><br>All Rights Reserved 2020
+     </center>
+
    </div>
 
 
