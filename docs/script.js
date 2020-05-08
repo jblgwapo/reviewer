@@ -2,12 +2,6 @@ var version = '6.6 Beta';
 var build = 4500;
 var Bank = [{"type":"mcq","question":"lkj","answer":"kj","choices":["lj","lkj","lj"],"major":"GEAS","subject":"Laws","topic":"lkj","explanation":"jk","links":["ljk"],"id":1574396720568,"image":"lkj"}];
 
-const cloudUpload = function(){
-	Bank.map();
-
-
-
-};
 
 
 
@@ -23,9 +17,56 @@ var test = function(){
     links:[],
     explanation:'explains why',
     contributor:'jb'};
+		envelope = {
+			contents:[entry],
+			action:'push'
+		}
 
   var url = System.url+'?action=push';
-  $.post(url,entry, function (json) {
+  $.post(url, envelope, function (json) {
+            console.log(JSON.stringify(json));
+    },'json');
+}
+
+
+var cloudUpload = function(){
+	console.log('test is on going');
+	var stamp = Date.now();
+ var contents = [];
+ console.log('Mapping the bank from '+stamp);
+ Bank.map( function(sample){
+
+	 var token = {
+		 stamp:stamp++,
+		 major: sample.major,
+		 subject: sample.subject,
+		 question:sample.question,
+		 choices:sample.answer,
+		 image: (sample.image||0 ? sample.image: 'none'),
+		 links:'none',
+		 explanation:(sample.explanation||0 ? sample.explanation: 'none'),
+		 contributor:'jbl',
+	 };
+
+	 sample.choices.map(function(choice){
+		 token.choices += `/jbl/${choice}`;
+	 });
+	 contents.push(token);
+	 console.log('Token');
+ });
+ console.log('Data is ready. Connecting to database');
+
+
+
+
+	var envelope = {
+			contents:atob(JSON.stringify(contents)),
+			action:'push'
+		}
+	console.log(JSON.stringify(envelope));
+  var url = System.url+'?action=push';
+  $.post(url, envelope, function (json) {
+		 				console.log('Online!');
             console.log(JSON.stringify(json));
     },'json');
 }

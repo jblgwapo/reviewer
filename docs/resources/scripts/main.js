@@ -245,13 +245,31 @@ function refreshBank(){
 ////--------------------------GOOGLE DRIVE ------
 function Download(){
   var url = `${System.server}?action=pull`;
+  var saved = localStorage.getItem('Bank');
+  var hasData = false;
+  if (saved!=null){
+    try {
+      saved = JSON.parse(saved);
+      console.log('We have local data...');
+    } catch (e) { }
+  }
   $.getJSON(url, function (json) {
     console.log(json);
     console.log(JSON.stringify(json));
             parseData(json.data);
+            localStorage.setItem('Bank', JSON.stringify(json.data))
             console.log('Question Bank has been Updated');
-            localStorage.setItem('Bank', JSON.stringify(Bank));
-    }).fail(function(){GUI_Alert('You are offline.')});
+            
+    }).fail(function(){
+        try {
+          parseData(saved);
+          GUI_Alert('Offline data has been loaded.');
+        } catch (e) {
+            console.log(e);
+            console.log(JSON.stringify(saved));
+            GUI_Alert('Cannot Connect to Server.')
+        }
+      });
 return;
 }
 
@@ -462,7 +480,6 @@ function choose(index){
   var choices = [];
   $('.choice').each(function(){
     choices.push($(this).text());
-    console.log($(this).text() + ' vs ' + System.answer)
     if($(this).text()==System.answer){$(this).attr('remarks','correct'); return; }
     if($(this).text()==attempt){$(this).attr('remarks','wrong'); return;}
     $(this).attr('remarks','locked');
