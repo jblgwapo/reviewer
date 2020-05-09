@@ -254,7 +254,7 @@
         <center>
       </div>
       <span content="title-small">Explanation</span>
-      <textarea id="explaination" placeholder="Explanation (optional)"></textarea>
+      <textarea id="explanation" placeholder="Explanation (optional)"></textarea>
       <span content="title-small">Links</span>
       <textarea id="links" placeholder="Cite your sources (optional)"></textarea>
       <button onlick="Reload()" id="reload">Reload</button>
@@ -382,6 +382,7 @@
                   terminateModal('#upload');
                   if(json.result="success"){
                     GUI_Alert('Upload Complete!');
+                    clearValues();
                   }
                   else{
                     GUI_Alert('There was a Conflict!<br>'+json.result);
@@ -402,6 +403,13 @@
     }
 
 };
+
+function clearValues(){
+  ['question','ans','c1','c2','c3','image','explanation','links'].map(function(foo){
+    $(`#${foo}`).val('');
+  });
+
+}
 
 function test(){
 GUI_activateModal('#upload')

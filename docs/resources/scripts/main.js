@@ -35,7 +35,7 @@ const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.n
 if (isIos() && !isInStandaloneMode()) {
   console.log('Web');
   GUI_Alert('You can install the app for offline usage.<br><br><b>Step 1. </b>Click the share button.<br><b>Step 2. </b>Add to Home Screen.');
-  this.setState({ showInstallMessage: true });
+  //this.setState({ showInstallMessage: true });
 }
 console.log($('#server-id').val());
 System.server = `https://script.google.com/macros/s/${$('#server-id').val()}/exec`;
@@ -473,13 +473,13 @@ function Load(token){
     for(i=0;i<token.links.length;i++){
     a+='<a href="'+token.links[i]+'">Link '+String(i+1)+'</a><br>';}
   }
-  if(token.image=='none' || token.image==null){
-    $('#mcqimage').attr('status','idle');
-    console.log(token.image);
+  if(token.image=='none' || token.image==null || token.image==''){
+    $('#hasimage').attr('status','idle');
+    console.log('No image');
   }
   else{
     console.log('img');
-    $('#mcqimage').attr('status','active');
+    $('#hasimage').attr('status','active');
     $('#mcqimage').attr('src',token.image);
     console.log(token.image);
   }
@@ -487,8 +487,8 @@ function Load(token){
   $('#explanationContainer').attr('status','idle');
   $('#linksContainer').attr('status','idle');
   $('#major').text(token.major);
-  $('#explanation').text(token.explanation);
-  $('#links').text(token.links);
+  $('#explanation').html(token.explanation);
+  $('#links').html(token.links);
 }
 
 function choose(index){
@@ -510,6 +510,16 @@ function choose(index){
   if(attempt==System.answer){ System.correct++;}
   System.History.push([System.currentToken,choices,attempt]);
 System.requireAnswer=false;
+
+ if($('#showexp').is(':checked')){
+   $('#explanationContainer').attr('status','active');
+
+ }
+ if($('#showlinks').is(':checked')){
+   $('#linksContainer').attr('status','active');
+ }
+
+
 };
 
 function toggleSubject(event){
