@@ -10,7 +10,6 @@ self.addEventListener('install', function(event) {
         'service-worker.js',
         'resources/scripts/main.js',
         'resources/css/style.css',
-        'resources/database/est_bix.js',
         'resources/scripts/engine.js',
         'resources/boot/calm_cat.gif'
         ]);
@@ -38,7 +37,7 @@ self.addEventListener('fetch', function(event) {
         return response;
       } else {
         return fetch(event.request).then(function(res) {
-          return caches.open('static').then(function(cache) {
+          return caches.open('dynamic').then(function(cache) {
             cache.put(event.request.url, res.clone());
             return res;
           });
