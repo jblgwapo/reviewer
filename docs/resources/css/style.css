@@ -104,7 +104,7 @@ nav .icon { font-size: 2em; display: block; margin-bottom: 0;}
 nav svg{ height: 23px; width: auto; }
 #bootScreen[bootStatus="loading"] { top:0; bottom: 0; left:0; right:0; position: fixed; display: block; z-index: 999; color:white; background: rgb(104,206,253);}
 #bootLoader {height: auto; width: 100vw; position: absolute; margin: 20vh auto; }
-#bootLoader img {top:0; float: center;  height: auto; width: 80vh; max-width:400px;  display: inline-block;}
+#bootLoader img {top:0; float: center;  height: auto; width: 70vw; max-width:400px;  display: inline-block;}
 #bootLabel {width: 100vw; bottom:7vh; position: absolute; float: center;}
 #bootScreen[bootStatus="complete"] { display: none; transition: display 1s; transition-delay: 3s;}
 
