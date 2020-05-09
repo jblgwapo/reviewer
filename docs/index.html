@@ -239,6 +239,7 @@
     <div id="frame">
       <span id="major" content="title_small">MCQ</span>
       <span id="question">Question Goes Here:</span>
+      <center><img src="" onerror="this.src='resources/images/noimage.jpg'" status="idle" id="mcqimage"></center>
       <div id="choices">
         <a onclick="choose(0)"> <div class="choice" id="a">Choice A</div></a>
         <a onclick="choose(1)"> <div class="choice" id="b">Choice B</div></a>
@@ -248,9 +249,15 @@
       <div id="explanationContainer">Explanation: <span id="explanation"></span></div>
       <div id="linksContainer">Links: <span id="links"></span></div>
 
+
+
     </div>
-<div id="navigation_buttons"><button style="float:left;" onclick="Previous()">Previous</button> <button style="float:right;" onclick="Next()">Next</button></div>
-  </div>
+    <div id="navigation_buttons">
+      <button style="float:left;" onclick="Previous()">Previous</button> <button style="float:right;" onclick="Next()">Next</button>
+      <center><input type="text" id="token-id"></center>
+    </div>
+
+</div>
 
   <div class="exit" onclick="Pause()"></div>
 </div>

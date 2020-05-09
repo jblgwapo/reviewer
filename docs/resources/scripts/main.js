@@ -259,7 +259,7 @@ function Download(){
             parseData(json.data);
             localStorage.setItem('Bank', JSON.stringify(json.data))
             console.log('Question Bank has been Updated');
-            
+
     }).fail(function(){
         try {
           parseData(saved);
@@ -423,6 +423,17 @@ function Preview(index){
   $('#question').text(token.question);
   choices = cache[1];
 
+  if(token.image=='none' || token.image==null){
+    $('#mcqimage').attr('status','idle');
+    console.log(token.image);
+  }
+  else{
+    console.log('img');
+    $('#mcqimage').attr('status','active');
+    $('#mcqimage').attr('src',token.image);
+    console.log(token.image);
+  }
+
   var i=0;
   $('.choice').each(function(){ $(this).attr('remarks','locked'); $(this).text(choices[i]); i++});
   $('#major').text(token.major);
@@ -445,10 +456,11 @@ function Load(token){
   if(token==null) { token=random.token(); }
   if(token==null) { Pause(); GUI_Alert('Token Failed');}
   //console.log('Load: '+System.historyIndex+'/'+System.History.length);
-
+  $('#frame').animate({scrollTop:0},500);
+  //.scrollTop(0);
   $('#question').text(token.question);
   var choices = token.choices.split('/jbl/');
-
+  $('#token-id').val(token.stamp);
   System.answer = choices[0];
   //var choices = token.choices.concat(token.answer);
   var i=0;
@@ -461,6 +473,17 @@ function Load(token){
     for(i=0;i<token.links.length;i++){
     a+='<a href="'+token.links[i]+'">Link '+String(i+1)+'</a><br>';}
   }
+  if(token.image=='none' || token.image==null){
+    $('#mcqimage').attr('status','idle');
+    console.log(token.image);
+  }
+  else{
+    console.log('img');
+    $('#mcqimage').attr('status','active');
+    $('#mcqimage').attr('src',token.image);
+    console.log(token.image);
+  }
+
   $('#explanationContainer').attr('status','idle');
   $('#linksContainer').attr('status','idle');
   $('#major').text(token.major);

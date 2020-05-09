@@ -59,7 +59,160 @@
     <title>ECE Reviewer</title>
   </head>
   <body >
+    <script type="text/javascript">
 
+    var System = {
+        version:6.6,
+        url:"https://script.google.com/macros/s/AKfycbwdlihHyUJEgrmUFHdtBixjHRWxSC-HgvuiyeSmUgDttm5XYR-X/exec",
+        cache:[],
+      };
+
+
+    $(document).ready(function(){
+      $('li').click(function(){
+        var target = $(this);
+          $('.tab').each(function(i){
+            $(this).attr('status','noSelect');
+          });
+          $('section').each(function(i){
+            $(this).attr('status','idle');
+          });
+          $($(target).attr('child')).attr('status','active');
+          $(target).attr('status','selected');
+          var exec = $(target).attr('exec');
+          switch (exec) {
+            case 'none': return; break;
+            case 'updateStats': updateStats(); return; break;
+            case 'refreshBank': refreshBank(); return; break;
+            default:
+            return;
+          }
+        });
+        $('#submit').click(function(){
+          Submit();
+        });
+        $('#submit').click(function(){
+          Reload();
+        });
+          $('li').get(0).click();
+      });
+    function GUI_activateModal(modal){
+      $(modal);
+      $(modal).attr('status','active').animate({opacity:'1' },100, function(){ $(modal+'> div').animate({padding:'+=3pt', },200).animate({padding:'-=3pt' },100); });
+
+    };
+    function GUI_Alert(message){
+      GUI_activateModal('#alert');
+      $('#alertMessage').html('<p>'+message+'</p>');
+    }
+
+    function GUI_dark(){
+      mode = $('#darkmode').is(':checked');
+      console.log(mode)
+      if(mode){
+        $('body').attr('dark', 'true');
+      }
+      else{
+        $('body').attr('dark', 'auto');
+      }
+    }
+
+    function terminateModal(modal){
+      target = $(modal);
+      target.stop()
+      target.animate({ opacity: 0}, "slow", function(){ $(modal).attr('status','idle'); });
+      return;
+          var opacity=100;
+          var animation = setInterval(function(){
+            target.css('opacity',opacity/100);
+           opacity-=2;
+           if(opacity==0){clearInterval(animation); target.attr('status','idle');}
+         },2);
+    };
+
+    var Submit = function(){
+      console.log('Submit');
+      var complete = true;
+      var inc = [];
+      ['major','subject','question','ans','c1','c2','c3','contributor'].map(function(foo){
+          console.log(foo);
+          if($(`#${foo}`).val().trim()==''){
+            complete=false;
+            inc.push(foo);
+          }
+      });
+      if(!complete){
+        GUI_Alert('Form is incomplete.<br><p>' + JSON.stringify(inc) +'</p>');
+        return;
+      }
+      //check Choices
+      var arr=[];
+      ['ans','c1','c2','c3'].map(function(foo){
+          arr.push($(`#${foo}`).val().trim());
+      })
+      var sorted_arr = arr.slice().sort();
+        for (var i = 0; i < sorted_arr.length - 1; i++) {
+            if (sorted_arr[i + 1] === sorted_arr[i]) {
+                //Duplicate
+                GUI_Alert(`There's a duplicate in the choices.`);
+                return;
+            }
+        }
+
+
+      var token = {
+        stamp:Date.now(),
+        major:$('#major').val(),
+        subject:$('#subject').val(),
+        question:$('#question').val(),
+        choices: `${$('#ans').val()}/jbl/${$('#c1').val()}/jbl/${$('#c2').val()}/jbl/${$('#c3').val()}`,
+        image:$('#image').val(),
+        explanation:$('#explanation').val(),
+        links:$('#links').val().trim().replace('\n','/jbl/'),
+        contributor:$('#contributor').val(),
+      }
+      console.log(token);
+      //save to cache
+      System.cache=[];
+      ['question','ans','c1','c2','c3','image','explanation','links'].map(function(foo){
+        System.cache.push(token[foo]);
+      });
+      upload(token);
+
+    };
+
+    function GUI_dark(){
+      mode = $('#darkmode').is(':checked');
+      console.log(mode)
+      if(mode){
+        $('body').attr('dark', 'true');
+      }
+      else{
+        $('body').attr('dark', 'auto');
+      }
+    }
+    var render = {};
+    function imagePreview(){
+      clearTimeout(render);
+      render = setTimeout(function(){
+
+        var image = $(`#image`).val().trim();
+        console.log(image);
+        if(image==''){
+          $('#imagePreview').attr('status','idle');
+        }
+        else{
+          console.log('Image on form');
+          $('#imagePreview').attr('status','active');
+          $('#img').attr('src', image);
+        }
+
+      },500);
+
+    }
+
+
+    </script>
 
 
 <nav>
@@ -78,29 +231,34 @@
 
 <main>
   <style media="screen">
-    section textarea, input[type="text"] { width: calc(100% - 1em); border: none; border-radius: 0.7em; resize:none; padding: 0.5em; font-size: 1em; margin: 3px auto;}
+    section textarea, input[type="text"] { width: calc(100% - 1em); border: 1px solid rgba(128,128,128,0.3); border-radius: 0.7em; resize:none; padding: 0.5em; font-size: 1em; margin: 3px auto; background: var(--theme); color:inherit;}
   </style>
   <section class="main" status="active">
     <span content="title">Upload</span>
     <div class="container">
       <span content="title-small">Question</span>
-      <textarea id="question"></textarea>
+      <textarea id="question" placeholder="Question"></textarea>
       <span content="title-small">Answer</span>
-      <input type="text" id="ans">
+      <input type="text" id="ans" placeholder="Answer">
       <span content="title-small">Choices</span>
-      <input type="text" id="c1">
-      <input type="text" id="c2">
-      <input type="text" id="c3">
+      <input type="text" id="c1" placeholder="Choice 1">
+      <input type="text" id="c2" placeholder="Choice 2">
+      <input type="text" id="c3" placeholder="Choice 3">
       <br><br>
-      (Optional)
+
       <span content="title-small">Image Link</span>
-      <input type="text" id="image">
+      <input type="text" id="image" placeholder="Link (optional)" onkeyup="imagePreview()">
+      <div id="imagePreview" status="idle">
+        <center>
+        <img src="" onerror="this.src='resources/images/error.png'" id="img" style="height:200px; width:auto; display:inline-block;">
+        <center>
+      </div>
       <span content="title-small">Explanation</span>
-      <textarea id="explaination"></textarea>
+      <textarea id="explaination" placeholder="Explanation (optional)"></textarea>
       <span content="title-small">Links</span>
-      <textarea id="links"></textarea>
+      <textarea id="links" placeholder="Cite your sources (optional)"></textarea>
       <button onlick="Reload()" id="reload">Reload</button>
-      <button onlick="Submit()" id="submit">Submit</button>
+      <button onlick="Submit()" id="submit"><b>Submit</b></button>
     </div>
   </section>
   <section class="settings" status="idle">
@@ -113,113 +271,28 @@
       <span content="title-small">Subject</span>
       <input type="text" id="subject">
     </div>
+
+
+    <div class="container">
+      <div class="element">
+    	 <div class="pref">Dark Mode
+         <div class="set">
+           <label class="switch"><input type="checkbox"  value=""  onclick="GUI_dark(this.value)" id="darkmode"><span class="slider round"></span></label>
+         </div>
+    	 <div class="info">Force to dark mode. For unsupported devices.</div></div>
+    	</div>
+
   </section>
 </main>
-<script type="text/javascript">
-
-var System = { version:6.6,
-    url:"https://script.google.com/macros/s/AKfycbwdlihHyUJEgrmUFHdtBixjHRWxSC-HgvuiyeSmUgDttm5XYR-X/exec"
-  };
 
 
-$(document).ready(function(){
-
-  $('li').click(function(){
-    var target = $(this);
-      $('.tab').each(function(i){
-        $(this).attr('status','noSelect');
-      });
-      $('section').each(function(i){
-        $(this).attr('status','idle');
-      });
-      $($(target).attr('child')).attr('status','active');
-      $(target).attr('status','selected');
-      var exec = $(target).attr('exec');
-      switch (exec) {
-        case 'none': return; break;
-        case 'updateStats': updateStats(); return; break;
-        case 'refreshBank': refreshBank(); return; break;
-        default:
-        return;
-      }
-    });
-    $('#submit').click(function(){
-      Submit();
-    });
-    $('#submit').click(function(){
-      Reload();
-    });
-      $('li').get(0).click();
-  });
-function GUI_activateModal(modal){
-  $(modal);
-
-  $(modal).attr('status','active').animate({opacity:'1' },100, function(){ $(modal+'> div').animate({padding:'+=3pt', },200).animate({padding:'-=3pt' },100); });
-
-};
-function GUI_Alert(message){
-  GUI_activateModal('#alert');
-  $('#alertMessage').html('<p>'+message+'</p>');
-}
-
-function GUI_dark(){
-  mode = $('#darkmode').is(':checked');
-  console.log(mode)
-  if(mode){
-    $('body').attr('dark', 'true');
-  }
-  else{
-    $('body').attr('dark', 'auto');
-  }
-}
-
-function terminateModal(modal){
-  target = $(modal);
-  target.stop()
-  target.animate({ opacity: 0}, "slow", function(){ $(modal).attr('status','idle'); });
-  return;
-      var opacity=100;
-      var animation = setInterval(function(){
-        target.css('opacity',opacity/100);
-       opacity-=2;
-       if(opacity==0){clearInterval(animation); target.attr('status','idle');}
-     },2);
-};
-
-var Submit = function(){
-  console.log('Submit');
-  var complete = true;
-  var inc = [];
-  ['major','subject','question','ans','c1','c2','c3','contributor'].map(function(foo){
-      console.log(foo);
-      if($(`#${foo}`).val().trim()==''){
-        complete=false;
-        inc.push(foo);
-      }
-  });
-  if(!complete){
-    GUI_Alert('Form is incomplete.<br><p>' + JSON.stringify(inc) +'</p>');
-    return;
-  }
-
-
-  var token = {
-    stamp:Date.now(),
-    major:$('#major').val(),
-    subject:$('#subject').val(),
-    question:$('#question').val(),
-    choices: `${$('#ans').val()}/jb/${$('#c1').val()}/jb/${$('#c2').val()}/jbl/${$('#c3').val()}`,
-    image:$('#image').val(),
-    explanation:$('#explanation').val(),
-    links:$('#links').val().trim().replace('\n','/jbl/'),
-    contributor:$('#contributor').val(),
-  }
-  console.log(token);
-  upload(token);
-
-};
-
-</script>
+<div class="modal" id="upload" status="idle">
+  <div style="overflow:auto !important; height: auto; margin:10vh auto; text-align:center; padding:0; width:500px; max-width:80%;">
+    <img src="resources/images/uploading.gif" style="width:500px; max-width:80%; display:inline-block; border-radius:1em;" loop>
+  </div>
+  <p><span content="note"> Click Outside to Continue..</span></p>
+  <div class="exit" onclick="terminateModal('#upload')"></div>
+</div>
 
 
 <div class="modal" id="alert" status="idle">
@@ -300,15 +373,39 @@ var Submit = function(){
 <script type="text/javascript">
   var upload = function(token){
     var url = System.url+'?action=push';
-    $.post(url, token, function (json) {
-              console.log('Online!');
-              console.log(JSON.stringify(json));
-      },'json');
+    try {
+      GUI_activateModal('#upload');
+      $.post(url, token, function (json) {
+                console.log('Online!');
+                console.log(JSON.stringify(json));
+                if(json.hasOwnProperty('result')){
+                  terminateModal('#upload');
+                  if(json.result="success"){
+                    GUI_Alert('Upload Complete!');
+                  }
+                  else{
+                    GUI_Alert('There was a Conflict!<br>'+json.result);
+                    console.log(json);
+                  };
+                }
+                else{
+                  terminateModal('#upload');
+                  GUI_Alert('Server Error');
+                }
+        },'json');
 
 
-  };
+    } catch (e) {
+      terminateModal('#upload');
+      GUI_Alert('There was an error uploading the form.');
+      console.log(e);
+    }
 
+};
 
+function test(){
+GUI_activateModal('#upload')
+}
 
 
 </script>
