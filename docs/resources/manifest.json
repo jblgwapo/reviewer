@@ -3,7 +3,7 @@
  "short_name":"Y.N.I.G",
  "description": "Contains reviewers specifically for E.C.E" ,
  "scope":".",
- "start_url":"/?appView=yes",
+ "start_url":"/review/?appView=yes",
  "display" : "fullscreen",
  "orientation": "portrait",
  "theme_color":"#ffffff",
