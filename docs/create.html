@@ -60,15 +60,86 @@
   </head>
   <body >
     <script type="text/javascript">
-
+    var Queue =[];
+    var Answers=[];
     var System = {
         version:6.6,
         url:"https://script.google.com/macros/s/AKfycbwdlihHyUJEgrmUFHdtBixjHRWxSC-HgvuiyeSmUgDttm5XYR-X/exec",
         cache:[],
       };
 
+      var Subjects = {
+      	MATH:[
+      		"Algebra",
+      		"Geometry",
+      		"Trigonometry",
+      		"DiscreteMath",
+      		"Differential",
+      		"Integral",
+      		"DifferentialEquation",
+      		"AdvancedMath",
+      		"NumericalMethods",
+      		"ProbStat",
+      		"Extras"
+      	],
+      	GEAS:[
+      		"Thermodynamics",
+      		"Chemistry",
+      		"Economics",
+      		"Strength",
+      		"Mechanics",
+      		"Management",
+      		"Materials",
+      		"Vectors",
+      		"Laws",
+      		"Extras"
+      	],
+      	ELEC:[
+      		"TestAndMeasurements",
+      		"MicroElec",
+      		"Computer",
+      		"PowerGenerator",
+      		"SolidStates",
+      		"ElectronicCircuit",
+      		"ElecMag",
+      		"Industrial",
+      		"Special",
+      		"Extras"
+      	],
+      	EST:[
+      		"RadioWavePro",
+      		"Modulation",
+      		"Antennas",
+      		"DigiData",
+      		"TMAS",
+      		"Noise",
+      		"Microwave",
+      		"Optics",
+      		"SignalsSpectra",
+      		"Telephony",
+      		"Broadcasting",
+      		"Acoustics",
+      		"Extras"
+      	],
+      };
+
 
     $(document).ready(function(){
+      $('#contributor').val((localStorage.getItem('contributor') || 0) ? localStorage.getItem('contributor'): '');
+      try {
+        Queue = JSON.parse(localStorage.getItem('Queue'));
+        Answers = JSON.parse(localStorage.getItem('Answers'));
+        $('.qcount').each( function(){
+          $(this).html(Queue.length);
+        });
+      } catch (e) {
+
+        console.log('Queue failed');
+        console.log(e);
+      }
+
+
+
       $('li').click(function(){
         var target = $(this);
           $('.tab').each(function(i){
@@ -95,6 +166,23 @@
           Reload();
         });
           $('li').get(0).click();
+
+          Major = Object.keys(Subjects);
+      		options = '<option value="">Manual Mode</option>';
+      		for(i=0; i<Major.length; i++){
+      			options+='<optgroup label="'+Major[i]+'">';
+      			for(s=0;s<Subjects[Major[i]].length;s++){
+      				dir = Major[i] +'/'+Subjects[Major[i]][s];
+      				options += '<option value="'+dir+'">'+Subjects[Major[i]][s]+'</option>';
+      			}
+      			options+='</optgroup>'
+      		};
+      		$('#selectSub').html(options);
+
+
+
+
+
       });
     function GUI_activateModal(modal){
       $(modal);
@@ -160,6 +248,8 @@
         }
 
 
+
+
       var token = {
         stamp:Date.now(),
         major:$('#major').val(),
@@ -171,6 +261,12 @@
         links:$('#links').val().trim().replace('\n','/jbl/'),
         contributor:$('#contributor').val(),
       }
+      //include either explanation or links
+      if(token.links=='' && token.explanation==''){
+        GUI_Alert('Provide links or atleast explain.');
+        return;
+      }
+
       console.log(token);
       //save to cache
       System.cache=[];
@@ -211,7 +307,41 @@
 
     }
 
+    function fromQ(){
+      try {
+        if(Queue.length == Answers.length){
+          var item = Queue.pop();
+          var answer = Answers.pop();
+          $('#ans').val(answer);
+          ['question','c1','c2','c3'].map(function(foo,i){
+            $(`#${foo}`).val(item[i]);
+          })
+        }
+      } catch (e) {
+        if(Queue.length!=0){
+          var item = Queue.pop();
+          ['question','ans','c1','c2','c3'].map(function(foo,i){
+            $(`#${foo}`).val(item[i]);
+          });
+        }
+      } finally {
+        $('.qcount').each( function(){
+          $(this).html(Queue.length);
+        });
+      }
 
+
+    };
+
+    function switchAns (num) {
+      ans = $('#ans').val();
+      sw = $(`#c${num}`).val();
+      $('#ans').val(sw);
+      $(`#c${num}`).val(ans);
+    }
+    function autosave(id){
+      localStorage.setItem(id, $(`#${id}`).val());
+    }
     </script>
 
 
@@ -222,6 +352,11 @@
       <span tab>Upload</span>
       </li></a>
 
+      <a href="#" ><li exec="none" class="tab" child=".queue" status="false">
+        <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="310.34482758620686" viewBox="0, 0, 400,310.34482758620686"><g id="svgg"><path id="path0" d="M3.448 43.103 L 3.448 82.759 200.000 82.759 L 396.552 82.759 396.552 43.103 L 396.552 3.448 200.000 3.448 L 3.448 3.448 3.448 43.103 M62.069 44.828 L 62.069 62.069 43.103 62.069 L 24.138 62.069 24.138 44.828 L 24.138 27.586 43.103 27.586 L 62.069 27.586 62.069 44.828 M3.448 156.897 L 3.448 196.552 200.000 196.552 L 396.552 196.552 396.552 156.897 L 396.552 117.241 200.000 117.241 L 3.448 117.241 3.448 156.897 M62.069 156.897 L 62.069 175.862 43.103 175.862 L 24.138 175.862 24.138 156.897 L 24.138 137.931 43.103 137.931 L 62.069 137.931 62.069 156.897 M3.448 268.966 L 3.448 306.897 200.000 306.897 L 396.552 306.897 396.552 268.966 L 396.552 231.034 200.000 231.034 L 3.448 231.034 3.448 268.966 M62.069 270.690 L 62.069 289.655 43.103 289.655 L 24.138 289.655 24.138 270.690 L 24.138 251.724 43.103 251.724 L 62.069 251.724 62.069 270.690 " stroke="none" fill="currentColor" fill-rule="evenodd"></path></g></svg>
+        <span tab>Queue</span></li></a>
+
+
     <a href="#" ><li exec="none" class="tab" child=".settings" status="false">
       <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0, 0, 400,400"><g id="svgg"><path id="path0" d="M224.153 21.202 C 210.163 47.573,184.866 49.092,167.997 24.573 C 154.112 4.393,153.224 4.338,115.904 21.346 C 83.609 36.063,84.174 35.171,90.992 60.663 C 98.205 87.631,82.933 102.596,49.760 101.066 L 26.642 100.000 15.282 129.348 C 0.759 166.867,0.700 166.409,21.569 178.639 C 35.874 187.022,39.216 191.077,39.216 200.052 C 39.216 206.141,40.200 213.688,41.403 216.823 C 42.843 220.575,37.486 226.379,25.724 233.810 C 15.897 240.019,7.854 247.966,7.850 251.471 C 7.844 257.324,33.708 317.707,36.176 317.601 C 36.769 317.575,46.192 315.174,57.115 312.265 C 87.632 304.139,103.892 319.403,100.044 352.565 L 97.417 375.195 130.279 387.597 C 170.866 402.916,166.171 403.613,178.810 380.392 C 194.184 352.145,216.672 351.364,235.294 378.431 C 241.972 388.137,249.018 396.078,250.952 396.078 C 254.431 396.078,313.974 369.686,316.744 366.916 C 317.534 366.126,315.405 356.133,312.013 344.710 L 305.845 323.941 318.579 310.804 C 327.228 301.879,333.837 298.269,339.185 299.546 C 343.516 300.579,353.388 302.570,361.124 303.970 L 375.189 306.515 386.262 275.806 C 392.352 258.917,398.040 243.109,398.902 240.677 C 399.765 238.245,391.541 230.762,380.627 224.047 C 352.187 206.547,351.333 184.411,378.438 167.287 C 388.140 161.158,396.078 154.471,396.078 152.429 C 396.078 145.153,367.471 86.275,363.936 86.275 C 361.956 86.275,352.614 88.219,343.175 90.596 C 322.207 95.876,295.791 80.419,299.473 65.023 C 300.547 60.535,302.584 50.459,304.001 42.633 L 306.577 28.403 274.522 16.162 C 234.060 0.711,235.077 0.609,224.153 21.202 M248.449 128.163 C 303.828 167.085,301.764 243.431,244.422 277.093 C 187.857 310.300,113.725 267.684,113.725 201.961 C 113.725 133.508,193.713 89.693,248.449 128.163 " stroke="none" fill="currentColor" fill-rule="evenodd"></path></g></svg>
     <span tab>Settings</span></li></a>
@@ -231,7 +366,8 @@
 
 <main>
   <style media="screen">
-    section textarea, input[type="text"] { width: calc(100% - 1em); border: 1px solid rgba(128,128,128,0.3); border-radius: 0.7em; resize:none; padding: 0.5em; font-size: 1em; margin: 3px auto; background: var(--theme); color:inherit;}
+    section textarea, input[type="text"],select { width: calc(100% - 1em); border: 1px solid rgba(128,128,128,0.3); border-radius: 0.7em; resize:none; padding: 0.5em; font-size: 1em; margin: 3px auto; background: var(--theme); color:inherit;}
+    select {--webkit-style:none;}
   </style>
   <section class="main" status="active">
     <span content="title">Upload</span>
@@ -241,9 +377,9 @@
       <span content="title-small">Answer</span>
       <input type="text" id="ans" placeholder="Answer">
       <span content="title-small">Choices</span>
-      <input type="text" id="c1" placeholder="Choice 1">
-      <input type="text" id="c2" placeholder="Choice 2">
-      <input type="text" id="c3" placeholder="Choice 3">
+      <input type="text" id="c1" placeholder="Choice 1" style="width:calc(100% - 6em);"> <button style="width:4.5em;" onclick="switchAns(1)">Switch</button>
+      <input type="text" id="c2" placeholder="Choice 2" style="width:calc(100% - 6em);"> <button style="width:4.5em;" onclick="switchAns(2)">Switch</button>
+      <input type="text" id="c3" placeholder="Choice 3" style="width:calc(100% - 6em);"> <button style="width:4.5em;" onclick="switchAns(3)">Switch</button>
       <br><br>
 
       <span content="title-small">Image Link</span>
@@ -257,15 +393,160 @@
       <textarea id="explanation" placeholder="Explanation (optional)"></textarea>
       <span content="title-small">Links</span>
       <textarea id="links" placeholder="Cite your sources (optional)"></textarea>
-      <button onlick="Reload()" id="reload">Reload</button>
-      <button onlick="Submit()" id="submit"><b>Submit</b></button>
+      <button onlick="Reload()" id="reload" >Reload Last</button>
+      <button type="button" onclick="fromQ()" style="float:right;">Load from Queue</button>
+      <button onlick="Submit()" id="submit" ><b>Submit</b></button>
+
+    </div>
+    <div class="container">
+      <span content="title-small">Queue</span>
+      <span content="emphasize" class="qcount">0</span>
     </div>
   </section>
+  <script>
+  var Queue =[];
+  var Answers = [];
+  var parse = function(){
+		Queue = [];
+		item = [$('#selectSub').val(), $('#data').val(), $('#key').val()];
+
+		//item 1 consists of questions
+		//item 2 consists answers
+    if(item[0]=="" || item[0]==null){
+      major=$('#major').val().trim();
+      subject = $('#subject').val().trim();
+      if(major=='' || subject==''){
+        GUI_Alert('Please provide Major and Subject at settings');
+        return;
+      }
+    }
+    else{
+      foo = item[0].split('/');
+      $('#major').val(foo[0]);
+      $('#subject').val(foo[1]);
+    }
+    console.log(item[0]);
+		major,subject = item[0].split('/');
+    //check if empty
+    item[1]=item[1].trim();
+    item[2]=item[2].trim();
+    if(item[1]=='' || item[1]==null){
+      GUI_Alert('Nothing to parse')
+      return;
+    }
+		// Split lines
+		Buffer = item[1].split('\n');
+		for( i = 0; i < Buffer.length; i++){
+			if ( Buffer[i] == '' || Buffer[i] == ' ' || Buffer[i]=='\t')
+				{Buffer.splice(i, 1); i--;}};
+
+		// Clean Question
+		for(i=0; i<Buffer.length; i++){
+			dot = Buffer[i].indexOf('.');
+			if(dot <4){  Buffer[i] = Buffer[i].substr(dot+1).trim();}
+			curve = Buffer[i].indexOf(')');
+			if(curve <3){  Buffer[i] = Buffer[i].substr(curve+1).trim();}
+		};
+
+		console.log(Buffer.length/5);
+		if(Buffer.length%5){ console.log('BufferLen: '+ Buffer.length);
+		parseDebug();
+		return;}
+		console.log(Buffer);
+		len = (Buffer.length/5);
+		for(i=0;i<len;i++){
+			temp = Buffer.splice(0,5)
+			Queue.push(temp);
+		};
+
+		// answers
+		if(item[2]!='' || item[2]!=' ' || item[2]!='\t'){
+			answerKey=item[2].split('\n');
+			for( var i = 0; i < answerKey.length; i++){
+				if ( answerKey[i] == '' || answerKey[i] == ' ' || answerKey[i]=='\t')
+					{answerKey.splice(i, 1); i--;}};
+			//clean Answers
+			for(i=0; i<answerKey.length; i++){
+				dot = answerKey[i].indexOf('.');
+				if(dot <4){  answerKey[i] = answerKey[i].substr(dot+1).trim();}
+			};
+			if(answerKey.length==Queue.length){GUI_Alert('Answer Key is recognized.');
+				for(i=0;i<answerKey.length;i++){ Answers.push(answerKey[i]);}
+			}
+			else{ GUI_Alert('Answer key not available.');
+				console.log(answerKey.length+':')
+			};
+		}
+    console.log('Parse done!');
+			$('.qcount').each( function(){
+        $(this).html(Queue.length);
+      });
+      localStorage.setItem('Queue', JSON.stringify(Queue));
+      localStorage.setItem('Answers', JSON.stringify(Answers));
+		}
+
+    var parseDebug = function(){
+      item = [$('#subparse').val(), $('#data').val(), $('#key').val()]
+  		err=[];
+  		Buffer = item[1].split('\n');
+  		for(i=0; i<Buffer.length; i++){
+  			dot = Buffer[i].indexOf('.');
+  			if(dot <5){}
+  			else { err.push(i); } };
+  		if(err.length!=0){GUI.alert('Parse Error. Check line(s) '+String(err)+'.' ); return;};
+
+  		// Remove whitespaces
+  		for( i = 0; i < Buffer.length; i++){
+  			if ( Buffer[i] == '' || Buffer[i] == ' ' || Buffer[i]=='\t')
+  				{Buffer.splice(i, 1); i--;}};
+
+  		expected = 'a.'
+  		for(i=0; i<Buffer.length; i++){
+  			if(i%5==0) continue;
+  			if(Buffer[i].toLowerCase().startsWith(expected)) {
+  				switch(expected){
+  					case 'a.': expected = 'b.'; break;
+  					case 'b.': expected = 'c.'; break;
+  					case 'c.': expected = 'd.'; break;
+  					case 'd.': expected = 'a.'; break;}
+  				}
+  				else{
+  					number = Math.floor(i/5)+1;
+  					GUI_Alert('Missing ' + expected + ' in item ' + number); return;}
+  			}
+
+
+  		GUI_Alert('Parse Error');
+
+
+
+    }
+  </script>
+
+  <section class="queue" status="active">
+    <div class="container">
+      <select id="selectSub"></select>
+      <span content="title-small">Data:</span>
+      <textarea id="data" placeholder="Put some data here to parse"></textarea>
+      <span content="title-small">Answer Key:</span>
+      <textarea id="key" placeholder="Put answer keys here."></textarea>
+      <button onclick="parse()">Parse</button>
+    </div>
+    <div class="container">
+      <span content="title-small">Queue</span>
+      <span content="emphasize" class="qcount"></span>
+    </div>
+
+  </section>
+
+
+
+
   <section class="settings" status="idle">
     <span content="title">Settings</span>
     <div class="container">
       <span content="title-small">Contributor Name</span>
-      <input type="text" id="contributor">
+      <input type="text" id="contributor" onchange="autosave('contributor')">
       <span content="title-small">Major</span>
       <input type="text" id="major">
       <span content="title-small">Subject</span>
