@@ -408,7 +408,7 @@
   var Answers = [];
   var parse = function(){
 		Queue = [];
-		item = [$('#selectSub').val(), $('#data').val(), $('#key').val()];
+		item = [$('#selectSub option:selected').val(), $('#data').val(), $('#key').val()];
 
 		//item 1 consists of questions
 		//item 2 consists answers
@@ -525,6 +525,7 @@
 
   <section class="queue" status="active">
     <div class="container">
+      <span content="title-small">Auto Parse:</span>
       <select id="selectSub"></select>
       <span content="title-small">Data:</span>
       <textarea id="data" placeholder="Put some data here to parse"></textarea>
@@ -663,6 +664,7 @@
                   terminateModal('#upload');
                   if(json.result="success"){
                     GUI_Alert('Upload Complete!');
+                    localStorage.setItem('Queue',JSON.stringify(Queue));
                     clearValues();
                   }
                   else{
