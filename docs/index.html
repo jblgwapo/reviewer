@@ -78,6 +78,9 @@
       <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0, 0, 400,400"><g id="svgg"><path id="path0" d="M224.153 21.202 C 210.163 47.573,184.866 49.092,167.997 24.573 C 154.112 4.393,153.224 4.338,115.904 21.346 C 83.609 36.063,84.174 35.171,90.992 60.663 C 98.205 87.631,82.933 102.596,49.760 101.066 L 26.642 100.000 15.282 129.348 C 0.759 166.867,0.700 166.409,21.569 178.639 C 35.874 187.022,39.216 191.077,39.216 200.052 C 39.216 206.141,40.200 213.688,41.403 216.823 C 42.843 220.575,37.486 226.379,25.724 233.810 C 15.897 240.019,7.854 247.966,7.850 251.471 C 7.844 257.324,33.708 317.707,36.176 317.601 C 36.769 317.575,46.192 315.174,57.115 312.265 C 87.632 304.139,103.892 319.403,100.044 352.565 L 97.417 375.195 130.279 387.597 C 170.866 402.916,166.171 403.613,178.810 380.392 C 194.184 352.145,216.672 351.364,235.294 378.431 C 241.972 388.137,249.018 396.078,250.952 396.078 C 254.431 396.078,313.974 369.686,316.744 366.916 C 317.534 366.126,315.405 356.133,312.013 344.710 L 305.845 323.941 318.579 310.804 C 327.228 301.879,333.837 298.269,339.185 299.546 C 343.516 300.579,353.388 302.570,361.124 303.970 L 375.189 306.515 386.262 275.806 C 392.352 258.917,398.040 243.109,398.902 240.677 C 399.765 238.245,391.541 230.762,380.627 224.047 C 352.187 206.547,351.333 184.411,378.438 167.287 C 388.140 161.158,396.078 154.471,396.078 152.429 C 396.078 145.153,367.471 86.275,363.936 86.275 C 361.956 86.275,352.614 88.219,343.175 90.596 C 322.207 95.876,295.791 80.419,299.473 65.023 C 300.547 60.535,302.584 50.459,304.001 42.633 L 306.577 28.403 274.522 16.162 C 234.060 0.711,235.077 0.609,224.153 21.202 M248.449 128.163 C 303.828 167.085,301.764 243.431,244.422 277.093 C 187.857 310.300,113.725 267.684,113.725 201.961 C 113.725 133.508,193.713 89.693,248.449 128.163 " stroke="none" fill="currentColor" fill-rule="evenodd"></path></g></svg>
     <span tab>Settings</span></li></a>
   </ul>
+  <div class="tomatoTime" status="enabled">
+    <div id="tomatoRest"></div>
+  </div>
 </nav>
 
 
@@ -85,8 +88,6 @@
   <section class="main" status="idle">
     <span content="title">Study</span>
     <div class="container">
-      <button onclick="GUI_Alert('Hello World!')">Try me</button><br>
-      <br><br>
       <center>
         <button buttonSize="large" onclick="Start()">Start</button><br>
         <span content="note">
@@ -106,6 +107,9 @@
     <div class="container">
     <div id="userStats"></div>
   </div>
+  <div class="container">
+  This feature has been left undeveloped due to time constraints. Feel free to suggest features.
+</div>
   </section >
 
   <section class="bank" status="idle">
@@ -136,21 +140,21 @@
       <div class="element">
     	 <div class="pref">Show Explanations
          <div class="set">
-           <label class="switch"><input type="checkbox"  value="" onclick="" id="showexp"><span class="slider round"></span></label>
+           <label class="switch"><input type="checkbox"  value="" onclick="" id="showexp" checked><span class="slider round"></span></label>
          </div>
     	 <div class="info">Will not show if nothing is provided.</div></div>
     	</div>
       <div class="element">
     	 <div class="pref">Show Links
          <div class="set">
-           <label class="switch"><input type="checkbox"  value="" onclick="" id="showlinks"><span class="slider round"></span></label>
+           <label class="switch"><input type="checkbox"  value="" onclick="" id="showlinks" checked><span class="slider round"></span></label>
          </div>
     	 <div class="info">Will not show if nothing is provided.</div></div>
     	</div>
       <div class="element">
     	 <div class="pref">Tomato
          <div class="set">
-           <label class="switch"><input type="checkbox"  value="" onclick=""><span class="slider round"></span></label>
+           <label class="switch"><input type="checkbox"  checked onclick="" id="promodoro"><span class="slider round"></span></label>
          </div>
     	 <div class="info">For the serious.</div></div>
     	</div>
@@ -195,6 +199,10 @@
 
     </div>
 </div>
+<div id="tomatoTime" enabled="false">
+  <div id="tomatoBar" status="none"></div>
+</div>
+
 
 <div class="modal" id="alert" status="idle">
   <div window="alert" id="alertMessage"></div>
@@ -256,7 +264,7 @@
         <a onclick="choose(3)"> <div class="choice" id="d">Choice D</div></a>
       </div>
       <div id="explanationContainer"><em><span id="explanation"></span></em></div>
-      <div id="linksContainer">Links: <span id="links"></span></div>
+      <div id="linksContainer"><span id="links"></span></div>
 
 
 
@@ -265,6 +273,9 @@
 
       <button style="float:left;" onclick="Previous()">Previous</button> <button style="float:right;" onclick="Next()">Next</button>
       <center><input type="text" id="token-id"></center>
+      <div class="tomatoTime" status="enabled">
+        <div id="tomatoWork"></div>
+      </div>
     </div>
 
 </div>

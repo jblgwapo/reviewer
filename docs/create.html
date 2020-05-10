@@ -133,7 +133,7 @@
           $(this).html(Queue.length);
         });
       } catch (e) {
-
+        Queue=[];
         console.log('Queue failed');
         console.log(e);
       }
@@ -308,36 +308,55 @@
     }
 
     function fromQ(){
-      try {
-        if(Queue.length == Answers.length){
-          var item = Queue.pop();
-          var answer = Answers.pop();
-          $('#ans').val(answer);
-          ['question','c1','c2','c3'].map(function(foo,i){
-            $(`#${foo}`).val(item[i]);
-          })
-        }
-      } catch (e) {
         if(Queue.length!=0){
-          var item = Queue.pop();
+          var token = Queue.pop();
+          answer = null;
+          if(token.hasOwnProperty('answer')){
+            answer = token['answer'];
+            console.log('Answer: ' +answer);
+          }
+          index = -1;
           ['question','ans','c1','c2','c3'].map(function(foo,i){
-            $(`#${foo}`).val(item[i]);
+
+            $(`#${foo}`).val(token['form'][i]);
+            if(token['form'][i]==answer){
+              console.log('Answer in: '+i-1);
+            }
           });
+          if(index!=-1){
+            switchAns(index, "var(--green)");
+            $('#note').html('')
+          }
+          else if (answer!=null) {
+            $('#ans').css({color:"var(--red)"})
+            $('#note').html(`Suggested: ${answer}`);
+          }
+          else{
+            $('#ans').css({color:"var(--red)"})
+            $('#note').html('')
+          }
+
+
+
+          $('#major').val(token.dir[0]);
+          $('#subject').val(token.dir[1]);
         }
-      } finally {
+
+
         $('.qcount').each( function(){
           $(this).html(Queue.length);
         });
-      }
 
 
-    };
 
-    function switchAns (num) {
+    }
+
+    function switchAns (num, color="inherit") {
       ans = $('#ans').val();
       sw = $(`#c${num}`).val();
       $('#ans').val(sw);
       $(`#c${num}`).val(ans);
+      $('#ans').css({color:color})
     }
     function autosave(id){
       localStorage.setItem(id, $(`#${id}`).val());
@@ -366,8 +385,8 @@
 
 <main>
   <style media="screen">
-    section textarea, input[type="text"],select { width: calc(100% - 1em); border: 1px solid rgba(128,128,128,0.3); border-radius: 0.7em; resize:none; padding: 0.5em; font-size: 1em; margin: 3px auto; background: var(--theme); color:inherit;}
-    select {--webkit-style:none;}
+  select {-webkit-appearance: none;}
+    section textarea, input[type="text"],select { width: calc(100% - 1em); border: 1px solid rgba(128,128,128,0.3); border-radius: 0.7em; resize:none; padding: 0.5em; font-size: 1em; margin: 3px auto; background: var(--theme); }
   </style>
   <section class="main" status="active">
     <span content="title">Upload</span>
@@ -376,6 +395,7 @@
       <textarea id="question" placeholder="Question"></textarea>
       <span content="title-small">Answer</span>
       <input type="text" id="ans" placeholder="Answer">
+      <span content="note" id="note"></span>
       <span content="title-small">Choices</span>
       <input type="text" id="c1" placeholder="Choice 1" style="width:calc(100% - 6em);"> <button style="width:4.5em;" onclick="switchAns(1)">Switch</button>
       <input type="text" id="c2" placeholder="Choice 2" style="width:calc(100% - 6em);"> <button style="width:4.5em;" onclick="switchAns(2)">Switch</button>
@@ -407,7 +427,7 @@
   var Queue =[];
   var Answers = [];
   var parse = function(){
-		Queue = [];
+		que = [];
 		item = [$('#selectSub option:selected').val(), $('#data').val(), $('#key').val()];
 
 		//item 1 consists of questions
@@ -416,17 +436,20 @@
       major=$('#major').val().trim();
       subject = $('#subject').val().trim();
       if(major=='' || subject==''){
-        GUI_Alert('Please provide Major and Subject at settings');
+        GUI_Alert('Select Subject First');
         return;
       }
     }
     else{
-      foo = item[0].split('/');
-      $('#major').val(foo[0]);
-      $('#subject').val(foo[1]);
+
+      item[0] = item[0].split('/');
+      $('#major').val(item[0][0]);
+      $('#subject').val(item[0][1]);
     }
     console.log(item[0]);
-		major,subject = item[0].split('/');
+		major = item[0][0];
+    subject = item[0][1];
+    console.log('Item 0 :' + item[0]);
     //check if empty
     item[1]=item[1].trim();
     item[2]=item[2].trim();
@@ -452,13 +475,13 @@
 		if(Buffer.length%5){ console.log('BufferLen: '+ Buffer.length);
 		parseDebug();
 		return;}
-		console.log(Buffer);
+		//console.log(Buffer);
 		len = (Buffer.length/5);
 		for(i=0;i<len;i++){
 			temp = Buffer.splice(0,5)
-			Queue.push(temp);
+			que.push(temp);
 		};
-
+    console.log('Moving to answerkey');
 		// answers
 		if(item[2]!='' || item[2]!=' ' || item[2]!='\t'){
 			answerKey=item[2].split('\n');
@@ -470,16 +493,33 @@
 				dot = answerKey[i].indexOf('.');
 				if(dot <4){  answerKey[i] = answerKey[i].substr(dot+1).trim();}
 			};
-			if(answerKey.length==Queue.length){GUI_Alert('Answer Key is recognized.');
-				for(i=0;i<answerKey.length;i++){ Answers.push(answerKey[i]);}
+			if(answerKey.length==que.length){GUI_Alert('Answer Key is recognized.');
+				for(i=0;i<answerKey.length;i++){
+          token = {
+            form:que[i],
+            answer:answerKey[i],
+            dir:item[0]
+          }
+           Queue.push(token);
+         }
 			}
-			else{ GUI_Alert('Answer key not available.');
+			else{
+        GUI_Alert('Answer key not available.');
 				console.log(answerKey.length+':')
+        for(i=0;i<que.length;i++){
+          token = {
+            form:que[i],
+            dir:item[0]
+          }
+           Queue.push(token);
+         }
+         console.log(Queue);
 			};
 		}
     console.log('Parse done!');
+    console.log(Queue);
 			$('.qcount').each( function(){
-        $(this).html(Queue.length);
+        $(this).html(que.length);
       });
       localStorage.setItem('Queue', JSON.stringify(Queue));
       localStorage.setItem('Answers', JSON.stringify(Answers));
@@ -526,7 +566,7 @@
   <section class="queue" status="active">
     <div class="container">
       <span content="title-small">Auto Parse:</span>
-      <select id="selectSub"></select>
+      <center><select id="selectSub"></select></center>
       <span content="title-small">Data:</span>
       <textarea id="data" placeholder="Put some data here to parse"></textarea>
       <span content="title-small">Answer Key:</span>
@@ -666,6 +706,8 @@
                     GUI_Alert('Upload Complete!');
                     localStorage.setItem('Queue',JSON.stringify(Queue));
                     clearValues();
+
+                    $('#ans').css({color:"inherit"})
                   }
                   else{
                     GUI_Alert('There was a Conflict!<br>'+json.result);

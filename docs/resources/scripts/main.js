@@ -1,3 +1,6 @@
+//console.log = function() {}
+
+
 $(document).ready(function(){
 
   $('li').click(function(){
@@ -419,7 +422,7 @@ function Preview(index){
   var dir = cache[0].split('/');
 
   var token = Bank[dir[0]][dir[1]][Number(dir[2])];
-  System.answer = token.choices.split('/jbl/')[0];;
+  System.answer = token.choices.split('/jbl/')[0];
   $('#question').text(token.question);
   choices = cache[1];
 
@@ -437,8 +440,37 @@ function Preview(index){
   var i=0;
   $('.choice').each(function(){ $(this).attr('remarks','locked'); $(this).text(choices[i]); i++});
   $('#major').text(token.major);
-  $('#explanation').text(token.explanation);
-  $('#links').text(token.links);
+  console.log(token);
+  //links
+  if(token.links!=''){
+    var links=token.links.split('-----');
+    console.log(links);
+    a='';
+    links.map(function(link){
+      a+=`<a href="${link}" >Read More...</a><br>`;
+      console.log('link append');
+    });
+    $('#linksContainer').html(a)
+    $('#linksContainer').attr('status','active');
+  }
+  else{
+    $('#linksContainer').attr('status','idle');
+  }
+  //images
+  if(token.image=='none' || token.image==null || token.image==''){
+    $('#hasimage').attr('status','idle');
+    console.log('No image');
+  }
+  else{
+    console.log('img');
+    $('#hasimage').attr('status','active');
+    $('#mcqimage').attr('src',token.image);
+    console.log(token.image);
+  }
+  //explanation
+  $('#explanationContainer').attr('status','active');
+  $('#explanation').html(token.explanation);
+
   if(cache.length==2){
     $('.choice').each(function(){ $(this).attr('remarks','none');});
     System.History.pop(); System.requireAnswer=true; return; }
@@ -468,11 +500,15 @@ function Load(token){
   console.log(choices);
   $('.choice').each(function(){ $(this).attr('remarks','ready'); $(this).text(choices[i]); i++});
   System.requireAnswer=true;
-  a = '';
-  if(token.links){
-    for(i=0;i<token.links.length;i++){
-    a+='<a href="'+token.links[i]+'">Link '+String(i+1)+'</a><br>';}
+  a = '<em>No links provided</em>';
+  if(token.links!=''){
+    a='';
+    var links=token.links.split('-----');
+    links.map(function(link){
+      a+=`<a href="${link}" >Read More...</a><br>`;
+    })
   }
+  $('#links').html(a);
   if(token.image=='none' || token.image==null || token.image==''){
     $('#hasimage').attr('status','idle');
     console.log('No image');
@@ -488,7 +524,8 @@ function Load(token){
   $('#linksContainer').attr('status','idle');
   $('#major').text(token.major);
   $('#explanation').html(token.explanation);
-  $('#links').html(token.links);
+
+
 }
 
 function choose(index){
@@ -513,7 +550,6 @@ System.requireAnswer=false;
 
  if($('#showexp').is(':checked')){
    $('#explanationContainer').attr('status','active');
-
  }
  if($('#showlinks').is(':checked')){
    $('#linksContainer').attr('status','active');
@@ -582,14 +618,22 @@ document.addEventListener('keydown', id_return, false);
 
 
 var Clock = setInterval(function(){
+  if($('#promodoro').is(':checked')!=true){
+    console.log('Promodoro not available');
+    return;}
+
+  $('#tomatoTime').attr('enabled','true');
   if(System.Tomato.rest){
     System.Tomato.timer--;
     var min = parseInt(System.Tomato.timer/60);
     var sec = System.Tomato.timer%60;
     var t = (min<10? '0' : '')+String(min)+':' + (sec<10? '0' : '')+String(sec);
     $('#tomato-timer').html( t);
+    upper = 300;
+    if(System.Tomato.session%4==0 && System.Tomato.session!=0){ upper=900 }
+    bar = 100*(System.Tomato.timer/upper);
 
-
+    $('#tomatoRest').css({width:String(bar)+'%'});
     if(System.Tomato.timer<=0){
       System.Tomato.rest=false;
       System.Tomato.timer=0;
@@ -598,16 +642,17 @@ var Clock = setInterval(function(){
   }
   else if (System.idle==false) {
     System.Tomato.timer++;
+
+    $('#tomatoWork').css({width:String(100*(System.Tomato.timer/1500))+'%'});
     if(System.Tomato.timer>1500){
       System.Tomato.rest=true;
       Pause();
-      if(System.Tomato.session%4){
+      if(System.Tomato.session%4 && System.Tomato.session!=0){
         System.Tomato.timer=900;
       }
       else{
         System.Tomato.timer=300;
       }
-
     }
   }
 
