@@ -102,6 +102,7 @@ nav li[status='selected']{  color:#00a2ff !important; transition-property:color;
 nav li[status='noSelect']{  transition-property: color; transition-duration: 0.7s;}
 nav .icon { font-size: 2em; display: block; margin-bottom: 0;}
 nav svg{ height: 23px; width: auto; }
+span { cursor: default;}
 #bootScreen[bootStatus="loading"] { top:0; bottom: 0; left:0; right:0; position: fixed; display: block; z-index: 999; color:white; background: rgb(104,206,253);}
 #bootLoader {height: auto; width: 100vw; position: absolute; margin: 20vh auto; }
 #bootLoader img {top:0; float: center;  height: auto; width: 70vw; max-width:400px;  display: inline-block;}
@@ -149,6 +150,7 @@ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 15px 0 rgba(0, 0, 0, 0.05); }
 
 .choice		{ margin:1vh auto; padding:1.7vh; display:block; background: var(--button);
 	 					border-radius: var(--curve); border: 1px solid rgba(128,128,128,0.3);
+						cursor: default;
 					}
 					.choice:hover	{ filter: brightness(0.9); transition: filter 0.25s;}
 					[remarks="correct"]{ color:#f7f7f7; background: var(--green); transition: background 0.25s ease-in; }
