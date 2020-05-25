@@ -1,6 +1,6 @@
 {
  "name": "Your New Information Ground",
- "short_name":"Y.N.I.G",
+ "short_name":"π",
  "description": "Contains reviewers specifically for E.C.E" ,
  "scope":".",
  "start_url":"/reviewer/?appView=yes",

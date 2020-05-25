@@ -22,6 +22,7 @@ var System = {
       "Extras"
     ],
     GEAS:[
+      "Physics",
       "Thermodynamics",
       "Chemistry",
       "Economics",
@@ -228,7 +229,6 @@ var render = {};
 function imagePreview(){
   clearTimeout(render);
   render = setTimeout(function(){
-
     var image = $(`#image`).val().trim();
     console.log(image);
     if(image==''){
@@ -256,7 +256,7 @@ function fromQ(){
       ['question','ans','c1','c2','c3'].map(function(foo,i){
 
         $(`#${foo}`).val(token['form'][i]);
-        if(token['form'][i]==answer){
+        if(token['form'][foo]==answer){
           console.log('Answer in: '+i-1);
         }
       });
@@ -317,9 +317,9 @@ var parse = function(){
       GUI_Alert('Select Subject First');
       return;
     }
+    item[0] = [major,subject];
   }
   else{
-
     item[0] = item[0].split('/');
     $('#major').val(item[0][0]);
     $('#subject').val(item[0][1]);
@@ -414,7 +414,7 @@ var parse = function(){
       dot = Buffer[i].indexOf('.');
       if(dot <5){}
       else { err.push(i); } };
-    if(err.length!=0){GUI.alert('Parse Error. Check line(s) '+String(err)+'.' ); return;};
+    if(err.length!=0){GUI_Alert('Parse Error. Check line(s) '+String(err)+'.' ); return;};
 
     // Remove whitespaces
     for( i = 0; i < Buffer.length; i++){
@@ -515,7 +515,7 @@ function fileInit(){
 function saveFile(filename=''){
   if(filename=='') active = System.activeFile;
   else { active=filename }
-
+    if(Queue.length==0)return;
     active = `${Queue[0].dir[0]}-${Queue[0].dir[1]}`;
     data = JSON.stringify(Queue);
     localStorage.setItem(active, data);
