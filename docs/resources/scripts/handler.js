@@ -223,7 +223,9 @@ var Global = {
       console.log(JSON.stringify(json));
       console.log(json.data);
       })
-      .fail(function(){ console.log('Ping Failed..') });
+      .fail(function(){
+        console.log('Ping Failed..')
+      });
   },
   fetch:function(){
     l = Global.parse(Local.settings.server, 'fetch');
@@ -244,17 +246,18 @@ var Global = {
     //
     //prepare login form
     // username, password, correct, rate, token
-    $('[profile="logging"]').attr('status', 'active');
-    $('[profile="login"]').attr('status', 'idle');
+
     if(Global.logging){
       Interface.alert('Logging in...');
       return;
     }
-    Global.logging = true;
     console.log('LOGIN');
     username = $('[login="username"]').val().trim();
     password = $('[login="password"]').val().trim();
-    if(username=='' || password==''){ return; }
+    if(username=='' || password==''){return; }
+    Global.logging = true;
+    $('[profile="logging"]').attr('status', 'active');
+    $('[profile="login"]').attr('status', 'idle');
     console.log('Password: '+ JSON.stringify({password:btoa(password)}));
 
     $.ajax({ type: "POST", url: Global.parse(Local.settings.server, 'login'),

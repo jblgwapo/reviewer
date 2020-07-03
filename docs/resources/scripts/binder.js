@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  console.log = function(){};
   bind();
 
   Local.init()
@@ -45,7 +46,7 @@ function bind(){
       var exec = $(target).attr('exec');
     });
     //on startup select main page
-    $('nav li').get(0).click();
+    $('nav li').get(1).click();
 
   //------------ Bind MCQ --------------------
   //Start
